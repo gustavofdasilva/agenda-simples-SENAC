@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace agenda_simples
 {
     public partial class Form1 : Form
     {
+        private contato[] listaDeContatos = new contato[1];
         public Form1()
         {
             InitializeComponent();
@@ -37,6 +39,41 @@ namespace agenda_simples
             contato objContato = new contato(txtNome.Text, txtSobrenome.Text, txtEmail.Text, txtTelefone.Text);
             lstContatos.Items.Add(objContato.ToString());
 
+        }
+
+        private void Escrever(contato contato)
+        {
+            StreamWriter escritorDeArquivos = new StreamWriter("Contato.txt");
+            escritorDeArquivos.WriteLine(listaDeContatos.Length + 1);
+            escritorDeArquivos.WriteLine(contato.PrimeiroNome);
+            escritorDeArquivos.WriteLine(contato.Sobrenome);
+            escritorDeArquivos.WriteLine(contato.Telefone);
+            escritorDeArquivos.WriteLine(contato.Email);
+
+            for (int i = 0; i < listaDeContatos.Length; i++)
+            {
+                escritorDeArquivos.WriteLine(contato.PrimeiroNome);
+                escritorDeArquivos.WriteLine(contato.Sobrenome);
+                escritorDeArquivos.WriteLine(contato.Telefone);
+                escritorDeArquivos.WriteLine(contato.Email);
+            }
+            escritorDeArquivos.Close();
+        }
+
+        private void Ler()
+        {
+            StreamReader leitorDeArquivos = new StreamReader("Contato.txt");
+            listaDeContatos = new contato[Convert.ToInt32(leitorDeArquivos.ReadLine())];
+            for (int i = 0; i < listaDeContatos.Length; i++)
+            {
+                listaDeContatos[i] = new contato();
+                listaDeContatos[i].PrimeiroNome = leitorDeArquivos.ReadLine();
+                listaDeContatos[i].Sobrenome = leitorDeArquivos.ReadLine();
+                listaDeContatos[i].Telefone = leitorDeArquivos.ReadLine();
+                listaDeContatos[i].Email = leitorDeArquivos.ReadLine();
+            }
+
+            leitorDeArquivos.Close();
         }
 
         private void label2_Click(object sender, EventArgs e)
