@@ -28,13 +28,7 @@ namespace agenda_simples
         public string Email
         {
             get { return email; }
-            set { if (value.Contains("@")) { 
-                    email = value;
-                } else
-                {
-                    email = "email@email.com";
-                }
-            }
+            set { email = value; }
         }
 
         public string Telefone

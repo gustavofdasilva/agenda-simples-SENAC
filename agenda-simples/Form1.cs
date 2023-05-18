@@ -21,7 +21,8 @@ namespace agenda_simples
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            Ler();
+            AtualizarLista();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -37,7 +38,11 @@ namespace agenda_simples
         private void btnAddContato_Click(object sender, EventArgs e)
         {
             contato objContato = new contato(txtNome.Text, txtSobrenome.Text, txtEmail.Text, txtTelefone.Text);
-            lstContatos.Items.Add(objContato.ToString());
+            Escrever(objContato);
+            Ordenar();
+            Ler();
+            AtualizarLista();
+            LimparFormulario();
 
         }
 
@@ -49,6 +54,7 @@ namespace agenda_simples
             escritorDeArquivos.WriteLine(contato.Sobrenome);
             escritorDeArquivos.WriteLine(contato.Telefone);
             escritorDeArquivos.WriteLine(contato.Email);
+
 
             for (int i = 0; i < listaDeContatos.Length; i++)
             {
@@ -96,6 +102,31 @@ namespace agenda_simples
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnOrdenar_Click(object sender, EventArgs e)
+        {
+            Ordenar();
+            AtualizarLista();
+        }
+
+        private void Ordenar()
+        {
+            contato temporario;
+            bool trocar;
+            do {
+                trocar = false;
+                for (int i = 0; i < listaDeContatos.Length - 1; i++)
+                {
+                    if (listaDeContatos[i].PrimeiroNome.CompareTo(listaDeContatos[i+1].PrimeiroNome)>0)
+                    {
+                        temporario = listaDeContatos[i];
+                        listaDeContatos[i] = listaDeContatos[i+ 1];
+                        listaDeContatos[i + 1] = temporario;
+                        trocar = true;
+                    }
+                }
+            } while (trocar == true);
         }
     }
 }
