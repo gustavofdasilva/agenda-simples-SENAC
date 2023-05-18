@@ -76,6 +76,23 @@ namespace agenda_simples
             leitorDeArquivos.Close();
         }
 
+        private void AtualizarLista()
+        {
+           lstContatos.Items.Clear();
+            for (int i = 0; i < listaDeContatos.Length; i++)
+            {
+                lstContatos.Items.Add(listaDeContatos[i].ToString());
+            }
+        }
+
+        private void LimparFormulario()
+        {
+            txtNome.Text = String.Empty;
+            txtSobrenome.Text = String.Empty;
+            txtEmail.Text = String.Empty;
+            txtTelefone.Text = String.Empty;
+        }
+
         private void label2_Click(object sender, EventArgs e)
         {
 
